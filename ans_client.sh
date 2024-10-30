@@ -29,4 +29,10 @@ if [ -z $SOCAT ]; then
     exit 1
 fi
 
+LOGFILE="/tmp/ans_client.log"
+
 echo $MESSAGE | $SOCAT - ABSTRACT-CONNECT:$ABSTRACT_SOCKET
+
+if [ $? -ne 0 ]; then
+    echo "$(date): Failed to send message: $MESSAGE" >> $LOGFILE
+fi
